@@ -8,5 +8,7 @@ package com.example.lua;
  */
 public interface ApiKeyLimitService {
 
+    Integer limitPerDay(String key);
+
     Integer limitPerDay(String key, Integer max);
 }

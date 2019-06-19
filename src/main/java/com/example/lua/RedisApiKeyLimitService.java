@@ -19,7 +19,13 @@ import java.util.Collections;
 @AllArgsConstructor
 public class RedisApiKeyLimitService implements ApiKeyLimitService {
 
+    private static final Integer MAX_TIMES = 100;
     private final StringRedisTemplate redisTemplate;
+
+    @Override
+    public Integer limitPerDay(String key) {
+        return limitPerDay(key, null);
+    }
 
     @Override
     public Integer limitPerDay(String key, Integer max) {
@@ -34,7 +40,8 @@ public class RedisApiKeyLimitService implements ApiKeyLimitService {
         long seconds = duration.getSeconds();
         String live = Long.valueOf(seconds).toString();
 
-        Integer timeToLive = (Integer) redisTemplate.execute(script, Collections.singletonList(key), live);
+        max = max == null ? MAX_TIMES : max;
+        Integer timeToLive = (Integer) redisTemplate.execute(script, Collections.singletonList(key), live, max);
         return timeToLive;
     }
 }

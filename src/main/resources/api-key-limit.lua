@@ -1,9 +1,10 @@
 local key = KEYS[1]
 local survival_time = ARGV[1]
+local max_times = ARGV[2]
 local id = redis.call('get',key)
 if(id == false)
 then
-    redis.call('set', key , 100)
+    redis.call('set', key , max_times)
     print(key..' expire-time '..survival_time..' seconds')
     redis.call('expire',key, survival_time)
     return id
