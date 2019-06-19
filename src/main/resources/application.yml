@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: test
+  redis:
+    host: redis
+  mail:
+    host: mail.inspur.com
+    port: 30
+    username: ecloud@inspur.com
+    password: oND-SK3-Uxn-zD5
+    properties:
+      mail:
+        smtp:
+          auth: true
+server:
+  port: 9000
+  servlet:
+    context-path: /
+
